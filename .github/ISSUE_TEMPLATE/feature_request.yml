@@ -1,0 +1,64 @@
+name: Feature request
+description: Suggest a reversible tweak, a UI improvement or a documentation fix
+title: "[idea] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This project only accepts changes that are reversible, measurable and safe.
+        "Disable Defender / Windows Update" and registry cleaners are out of scope by design.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does it solve?
+      description: Describe the symptom, not the implementation.
+      placeholder: Frame-time spikes after alt-tabbing out of a full-screen game.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: The registry key / setting / API, its default value, and how to undo it exactly.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk level
+      options:
+        - safe
+        - moderate
+        - advanced
+    validations:
+      required: true
+
+  - type: input
+    id: reboot
+    attributes:
+      label: Does it need a restart?
+      placeholder: "yes / no"
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A source, a measurement, or a before/after you ran yourself. No marketing claims.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checklist
+      options:
+        - label: The change can be undone exactly (old value type and data are known).
+          required: true
+        - label: It does not disable security features or Windows Update.
+          required: true
+        - label: I am willing to test it on my machine and report the result.
+          required: true

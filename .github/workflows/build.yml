@@ -1,0 +1,40 @@
+name: build
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build release
+        shell: powershell
+        run: .\build.ps1
+
+      - name: Run engine self test
+        shell: powershell
+        run: .\tools\run-selftest.ps1
+
+      - name: Verify artifact
+        shell: powershell
+        run: |
+          $exe = Get-Item .\dist\KiraDemorTY-Optimizer.exe
+          $exe | Select-Object Name, Length, @{n='Version';e={$_.VersionInfo.FileVersion}} | Format-List
+          if ($exe.Length -lt 100KB) { throw 'Executable looks too small' }
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: KiraDemorTY-Optimizer
+          path: dist/KiraDemorTY-Optimizer.exe
+          if-no-files-found: error
+          retention-days: 30

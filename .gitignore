@@ -1,0 +1,19 @@
+# Build output
+dist/
+*.exe
+*.pdb
+*.obj
+
+# Dev helper binaries (sources are kept)
+tools/*.exe
+
+# User / IDE
+.vs/
+.vscode/
+*.user
+*.suo
+Thumbs.db
+desktop.ini
+
+# Local test artefacts
+*.log
